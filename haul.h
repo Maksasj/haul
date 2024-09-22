@@ -1,5 +1,5 @@
-#ifndef HAUL_QUEUE_H
-#define HAUL_QUEUE_H
+#ifndef HAUL_H
+#define HAUL_H
 
 #include "queue.h"
 
