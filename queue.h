@@ -15,8 +15,6 @@ void create_queue(queue_t* queue, int initial_capacity);
 
 void queue_push(queue_t* queue, void* item);
 
-void* queue_get(queue_t* queue, int index);
-
 void* queue_pop(queue_t* queue);
 
 int queue_empty(queue_t* queue);
@@ -50,14 +48,6 @@ void queue_push(queue_t* queue, void* item) {
 
     queue->items[queue->stored] = item;
     ++queue->stored;
-}
-
-void* queue_get(queue_t* queue, int index) {
-    if(queue->stored <= index) {
-        return NULL;
-    }
-
-    return queue->items[index];
 }
 
 void* queue_pop(queue_t* queue) {
