@@ -1,7 +1,8 @@
 #ifndef HAUL_H
 #define HAUL_H
 
-#include "queue.h"
+#include "array"
 #include "vector.h"
+#include "queue.h"
 
 #endif

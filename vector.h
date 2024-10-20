@@ -15,9 +15,9 @@ void create_vector(vector_t* vector, int initial_capacity);
 
 void vector_push(vector_t* vector, void* item);
 
-void* vector_get(vector_t* vector, int index);
-
 void* vector_pop(vector_t* vector);
+
+void* vector_get(vector_t* vector, int index);
 
 int vector_empty(vector_t* vector);
 
@@ -52,14 +52,6 @@ void vector_push(vector_t* vector, void* item) {
     ++vector->stored;
 }
 
-void* vector_get(vector_t* vector, int index) {
-    if(vector->stored <= index) {
-        return NULL;
-    }
-
-    return vector->items[index];
-}
-
 void* vector_pop(vector_t* vector) {
     if(vector->stored == 0) {
         return NULL;
@@ -76,6 +68,14 @@ void* vector_pop(vector_t* vector) {
     }
 
     return popped_value;
+}
+
+void* vector_get(vector_t* vector, int index) {
+    if(vector->stored <= index) {
+        return NULL;
+    }
+
+    return vector->items[index];
 }
 
 int vector_empty(vector_t* vector) {
