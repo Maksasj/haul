@@ -3,6 +3,7 @@
 
 #include "array.h"
 #include "vector.h"
+#include "byte_vector.h"
 #include "queue.h"
 
 #endif
