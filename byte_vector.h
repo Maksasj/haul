@@ -4,11 +4,10 @@
 #include <stdlib.h>
 #include <assert.h>
 
-typedef unsigned char haul_byte_t;
-typedef unsigned long long haul_size_t;
+#include "haul_types.h"
 
 typedef struct {
-    haul_byte_t *data;
+    haul_u8_t *data;
     haul_size_t size;
     haul_size_t capacity;
 } byte_vector_t;
@@ -17,28 +16,55 @@ void create_byte_vector(byte_vector_t *arr, haul_size_t initialCapacity);
 
 void byte_vector_resize(byte_vector_t *arr, haul_size_t newCapacity);
 
-void byte_vector_push(byte_vector_t *arr, haul_byte_t value);
+void byte_vector_push_byte(byte_vector_t *arr, haul_u8_t value);
+
+void byte_vector_push8(byte_vector_t *arr, haul_u8_t value);
+void byte_vector_push16(byte_vector_t *arr, haul_u16_t value);
+void byte_vector_push32(byte_vector_t *arr, haul_u32_t value);
+void byte_vector_push64(byte_vector_t *arr, haul_u64_t value);
 
 void free_byte_vector(byte_vector_t *arr);
 
 #ifdef HAUL_IMPLEMENTATION
 
 void create_byte_vector(byte_vector_t *arr, haul_size_t initialCapacity) {
-    arr->data = (haul_byte_t *) malloc(initialCapacity * sizeof(haul_byte_t));
+    arr->data = (haul_u8_t *) malloc(initialCapacity * sizeof(haul_u8_t));
     arr->size = 0;
     arr->capacity = initialCapacity;
 }
 
 void byte_vector_resize(byte_vector_t *arr, haul_size_t newCapacity) {
-    arr->data = (haul_byte_t *) realloc(arr->data, newCapacity * sizeof(haul_byte_t));
+    arr->data = (haul_u8_t *) realloc(arr->data, newCapacity * sizeof(haul_u8_t));
     arr->capacity = newCapacity;
 }
 
-void byte_vector_push(byte_vector_t *arr, haul_byte_t value) {
+void byte_vector_push_byte(byte_vector_t *arr, haul_byte_t value) {
     if (arr->size == arr->capacity)
         byte_vector_resize(arr, arr->capacity * 2); // Double the capacity
     
     arr->data[arr->size++] = value;
+}
+
+void byte_vector_push8(byte_vector_t *arr, haul_u8_t value) {
+    byte_vector_push_byte(arr, value);   
+}
+
+void byte_vector_push16(byte_vector_t *arr, haul_u16_t value) {
+    haul_u8_t* split = (haul_u8_t*) &value;
+    byte_vector_push8(arr, split[0]);   
+    byte_vector_push8(arr, split[1]);
+}
+
+void byte_vector_push32(byte_vector_t *arr, haul_u32_t value) {
+    haul_u16_t* split = (haul_u16_t*) &value;
+    byte_vector_push16(arr, split[0]);   
+    byte_vector_push16(arr, split[1]);
+}
+
+void byte_vector_push64(byte_vector_t *arr, haul_u64_t value) {
+    haul_u32_t* split = (haul_u32_t*) &value;
+    byte_vector_push32(arr, split[0]);   
+    byte_vector_push32(arr, split[1]);
 }
 
 void free_byte_vector(byte_vector_t *arr) {
