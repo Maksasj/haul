@@ -5,5 +5,6 @@
 #include "vector.h"
 #include "byte_vector.h"
 #include "queue.h"
+#include "string_set.h"
 
 #endif

@@ -12,9 +12,9 @@ typedef struct {
     haul_size_t capacity;
 } byte_vector_t;
 
-void create_byte_vector(byte_vector_t *arr, haul_size_t initialCapacity);
+void create_byte_vector(byte_vector_t *arr, haul_size_t initial_capacity);
 
-void byte_vector_resize(byte_vector_t *arr, haul_size_t newCapacity);
+void byte_vector_resize(byte_vector_t *arr, haul_size_t new_capacity);
 
 void byte_vector_push_byte(byte_vector_t *arr, haul_u8_t value);
 
@@ -27,15 +27,15 @@ void free_byte_vector(byte_vector_t *arr);
 
 #ifdef HAUL_IMPLEMENTATION
 
-void create_byte_vector(byte_vector_t *arr, haul_size_t initialCapacity) {
-    arr->data = (haul_u8_t *) malloc(initialCapacity * sizeof(haul_u8_t));
+void create_byte_vector(byte_vector_t *arr, haul_size_t initial_capacity) {
+    arr->data = (haul_u8_t *) malloc(initial_capacity * sizeof(haul_u8_t));
     arr->size = 0;
-    arr->capacity = initialCapacity;
+    arr->capacity = initial_capacity;
 }
 
-void byte_vector_resize(byte_vector_t *arr, haul_size_t newCapacity) {
-    arr->data = (haul_u8_t *) realloc(arr->data, newCapacity * sizeof(haul_u8_t));
-    arr->capacity = newCapacity;
+void byte_vector_resize(byte_vector_t *arr, haul_size_t new_capacity) {
+    arr->data = (haul_u8_t *) realloc(arr->data, new_capacity * sizeof(haul_u8_t));
+    arr->capacity = new_capacity;
 }
 
 void byte_vector_push_byte(byte_vector_t *arr, haul_byte_t value) {
