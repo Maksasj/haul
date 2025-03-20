@@ -16,6 +16,7 @@ void create_string_set(string_set_t *set, haul_size_t initial_capacity);
 int string_set_has(string_set_t *set, const char* value);
 void string_set_insert(string_set_t *set, char* value);
 void string_set_erase(string_set_t *set, char* value);
+int string_set_size(string_set_t* set);
 
 void free_string_set(string_set_t *arr);
 
@@ -26,10 +27,9 @@ void create_string_set(string_set_t *set, haul_size_t initial_capacity) {
 }
 
 int string_set_has(string_set_t *set, const char* value) {
-    for(int i = 0; i < vector_size(&set->items); ++i) {
+    for(int i = 0; i < vector_size(&set->items); ++i)
         if(strcmp(vector_get(&set->items, i), value) == 0)
             return 1;
-    }    
 
     return 0;
 }
@@ -48,13 +48,16 @@ void string_set_erase(string_set_t *set, char* value) {
     vector_t new_vector;
     create_vector(&new_vector, set->items.capacity);
 
-    for(int i = 0; i < vector_size(&set->items); ++i) {
+    for(int i = 0; i < vector_size(&set->items); ++i)
         if(strcmp(vector_get(&set->items, i), value) != 0)
-            vector_push(&set->items, value);
-    }  
+            vector_push(&new_vector, value);
 
     free_vector(&set->items);
     set->items = new_vector;
+}
+
+int string_set_size(string_set_t* set) {
+    return vector_size(&set->items);
 }
 
 void free_string_set(string_set_t *set) {
